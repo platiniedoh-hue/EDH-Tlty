@@ -1,4 +1,4 @@
-name: Build EDH Tlty APK
+ame: Build EDH Tlty APK
 
 on:
   workflow_dispatch:
@@ -14,19 +14,18 @@ jobs:
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.11.9"
+
+      - name: Vérifier Python
+        run: |
+          python --version
+          python -m pip --version
 
       - name: Installer Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-
-
-      - name: Installer Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
 
       - name: Installer Buildozer
         run: |
@@ -35,22 +34,15 @@ jobs:
 
       - name: Accepter les licences Android
         run: |
-          yes | sdkmanager --licenses || true
-
-      - name: Nettoyer les anciens fichiers
-        run: |
-          rm -rf .buildozer
-          rm -rf bin
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Construire APK
-        env:
-          PIP_VERSION: "24.0"
         run: |
-          python -m pip install pip==23.3.2
-          buildozer -v android debug
+          buildozer android debug
 
       - name: Télécharger APK
         uses: actions/upload-artifact@v4
         with:
           name: EDH-Tlty-APK
           path: bin/*.apk
+
