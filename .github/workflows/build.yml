@@ -27,7 +27,7 @@ jobs:
 
       - name: Installer Build Tools
         run: |
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;35.0.0" "platform-tools" "platforms;android-35"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;37.0.0" "platform-tools" "platforms;android-35"
 
       - name: Construire APK
         run: buildozer android debug
