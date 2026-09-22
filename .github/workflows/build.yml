@@ -19,18 +19,15 @@ jobs:
       - name: Installer Buildozer
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "cython==0.29.37" "buildozer==1.6.0"
+          python -m pip install buildozer==1.6.0 cython==0.29.37
 
       - name: Accepter les licences Android
         run: |
-          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+          yes | sdkmanager --licenses || true
 
       - name: Installer Build Tools
         run: |
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
-            "build-tools;35.0.0" \
-            "platform-tools" \
-            "platforms;android-35"
+          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Nettoyer les anciens fichiers
         run: |
@@ -38,9 +35,11 @@ jobs:
           rm -rf bin
 
       - name: Construire APK
+        env:
+          PIP_VERSION: "24.0"
         run: |
-          python -m pip install "pip==24.0"
-          python -m buildozer android debug
+          python -m pip install pip==24.0
+          buildozer -v android debug
 
       - name: Télécharger APK
         uses: actions/upload-artifact@v4
