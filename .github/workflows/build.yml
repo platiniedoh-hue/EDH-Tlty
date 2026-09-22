@@ -14,7 +14,7 @@ jobs:
       - name: Installer Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11.9"
+          python-version: "3.12"
 
       - name: Vérifier Python
         run: |
@@ -38,7 +38,6 @@ jobs:
 
       - name: Construire APK
         run: |
-          export P4A_PYTHON_VERSION=3.11.9
           buildozer android debug
 
       - name: Télécharger APK
@@ -46,4 +45,3 @@ jobs:
         with:
           name: EDH-Tlty-APK
           path: bin/*.apk
-
