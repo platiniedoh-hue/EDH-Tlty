@@ -38,6 +38,7 @@ jobs:
 
       - name: Construire APK
         run: |
+          buildozer android clean
           buildozer android debug
 
       - name: Télécharger APK
