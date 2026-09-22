@@ -1,4 +1,4 @@
-name: Build EDH Tlty APK
+ame: Build EDH Tlty APK
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
       - name: Installer Buildozer
         run: |
           python -m pip install --upgrade pip
-          pip install "cython<3" buildozer
+          python -m pip install "cython==0.29.37" "buildozer==1.6.0"
 
       - name: Accepter les licences Android
         run: |
@@ -27,10 +27,15 @@ jobs:
 
       - name: Installer Build Tools
         run: |
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "build-tools;37.0.0" "platform-tools" "platforms;android-35"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" \
+            "build-tools;35.0.0" \
+            "platform-tools" \
+            "platforms;android-35"
 
       - name: Construire APK
-        run: buildozer android debug
+        run: |
+          python -m pip install "pip==24.0"
+          buildozer android debug
 
       - name: Télécharger APK
         uses: actions/upload-artifact@v4
