@@ -5,41 +5,19 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Récupérer le projet
         uses: actions/checkout@v4
 
-      - name: Installer Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Vérifier Python
+      - name: Construire APK avec Docker Kivy
         run: |
-          python --version
-          python -m pip --version
-
-      - name: Installer Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
-
-      - name: Installer Buildozer
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install buildozer==1.6.0 cython==0.29.37
-
-      - name: Accepter les licences Android
-        run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-      - name: Construire APK
-        run: |
-          rm -rf .buildozer
-          buildozer android debug
+          docker pull ghcr.io/kivy/buildozer:latest
+          docker run --rm \
+            -v "$PWD":/home/user/hostcwd \
+            ghcr.io/kivy/buildozer:latest \
+            android debug
 
       - name: Télécharger APK
         uses: actions/upload-artifact@v4
