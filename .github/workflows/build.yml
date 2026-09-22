@@ -46,7 +46,7 @@ jobs:
         env:
           PIP_VERSION: "24.0"
         run: |
-          python -m pip install pip==24.0
+          python -m pip install pip==23.3.2
           buildozer -v android debug
 
       - name: Télécharger APK
