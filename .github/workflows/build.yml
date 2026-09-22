@@ -38,6 +38,7 @@ jobs:
 
       - name: Construire APK
         run: |
+          export P4A_PYTHON_VERSION=3.11.9
           buildozer android debug
 
       - name: Télécharger APK
