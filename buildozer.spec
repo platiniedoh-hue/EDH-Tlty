@@ -1,3 +1,13 @@
+[buildozer]
+warn_on_root = 0
+
+
+
+
+
+
+
+
 # This .spec config file tells Buildozer an app's requirements for being built.
 #
 # It largely follows the syntax of an .ini file.
