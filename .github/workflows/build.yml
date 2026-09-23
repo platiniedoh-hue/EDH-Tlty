@@ -11,13 +11,11 @@ jobs:
       - name: Récupérer le projet
         uses: actions/checkout@v4
 
-      - name: Construire APK avec Docker Kivy
-        run: |
-          docker pull ghcr.io/kivy/buildozer:latest
-          docker run --rm \
-            -v "$PWD":/home/user/hostcwd \
-            ghcr.io/kivy/buildozer:latest \
-            bash -c "python3.11 -m pip install --upgrade pip setuptools wheel && buildozer android debug"
+      - name: Construire APK
+        uses: docker://ghcr.io/kivy/buildozer:latest
+        with:
+          entrypoint: /bin/bash
+          args: -c "buildozer android debug"
 
       - name: Télécharger APK
         uses: actions/upload-artifact@v4
