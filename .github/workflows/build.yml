@@ -1,11 +1,11 @@
-name: Build EDH Tlty APK
+ame: Build EDH Tlty APK
 
 on:
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Récupérer le projet
@@ -17,7 +17,7 @@ jobs:
           docker run --rm \
             -v "$PWD":/home/user/hostcwd \
             ghcr.io/kivy/buildozer:latest \
-            android debug
+            bash -c "python3.11 -m pip install --upgrade pip setuptools wheel && buildozer android debug"
 
       - name: Télécharger APK
         uses: actions/upload-artifact@v4
