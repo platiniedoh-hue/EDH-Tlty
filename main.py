@@ -42,7 +42,7 @@ class MainScreen(Screen):
         )
 
         welcome = Label(
-            text="Bienvenue sur EDH Tlty♪♪♪",
+            text="EDH Tlty♪♪♪ — VERSION TEST 2026",
             font_size="20sp",
             color=WHITE
         )
